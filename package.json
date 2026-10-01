@@ -1,0 +1,35 @@
+{
+  "name": "f1-race-engineer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Voice race engineer overlay for F1 25. Live UDP telemetry, Moza wheel push-to-talk, Gemini Live voice.",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "start": "npm run build && node scripts/start.mjs",
+    "dev": "npm run build && node scripts/start.mjs --dev",
+    "rebuild": "electron-rebuild -f -w node-hid",
+    "typecheck": "tsc --noEmit",
+    "record": "node scripts/record-udp.mjs",
+    "replay": "node scripts/replay-udp.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^2.18.0",
+    "node-hid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.1",
+    "@types/node": "^24.10.1",
+    "electron": "^43.4.1",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "allowScripts": {
+    "@google/genai@2.18.0": true,
+    "electron@43.4.1": true,
+    "esbuild@0.28.2": true,
+    "node-hid@3.4.0": true,
+    "protobufjs@7.6.5": true
+  }
+}

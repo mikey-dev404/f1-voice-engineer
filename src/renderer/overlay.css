@@ -1,0 +1,271 @@
+:root {
+  --bg: rgba(10, 12, 16, 0.82);
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #f2f4f8;
+  --muted: #8b93a3;
+  --green: #35d07f;
+  --red: #ff3b3b;
+  --blue: #4d9dff;
+  --amber: #ffb020;
+  --font: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: var(--font);
+  color: var(--text);
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.panel {
+  width: 100%;
+  height: 100%;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  opacity: 0.62;
+  transition:
+    opacity 180ms ease,
+    border-color 180ms ease;
+}
+
+/* Fade up only when the engineer is actually in use, so it stays out of the way. */
+.panel[data-state='listening'],
+.panel[data-state='thinking'],
+.panel[data-state='speaking'],
+.panel[data-state='error'] {
+  opacity: var(--active-opacity, 1);
+}
+
+.panel[data-state='listening'] {
+  border-color: rgba(255, 59, 59, 0.55);
+}
+
+.panel[data-state='speaking'] {
+  border-color: rgba(77, 157, 255, 0.5);
+}
+
+.pills {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pill i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background 200ms ease;
+}
+
+.pill.ok i {
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(53, 208, 127, 0.8);
+}
+
+.pill.warn i {
+  background: var(--amber);
+}
+
+.pill.bad i {
+  background: var(--red);
+}
+
+.pill b {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pill em {
+  font-style: normal;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 0;
+}
+
+.mic {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+}
+
+.mic-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: background 160ms ease;
+  z-index: 1;
+}
+
+/* Grows with mic input so you can see the radio is actually hearing you. */
+.mic-level {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transform: scale(0.45);
+  transition:
+    transform 70ms linear,
+    border-color 160ms ease;
+}
+
+.panel[data-state='listening'] .mic-dot {
+  background: var(--red);
+}
+
+.panel[data-state='listening'] .mic-level {
+  border-color: rgba(255, 59, 59, 0.7);
+}
+
+.panel[data-state='speaking'] .mic-dot {
+  background: var(--blue);
+}
+
+.panel[data-state='speaking'] .mic-level {
+  border-color: rgba(77, 157, 255, 0.55);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.panel[data-state='thinking'] .mic-dot {
+  background: var(--amber);
+  animation: blink 0.7s ease-in-out infinite;
+}
+
+.panel[data-state='error'] .mic-dot {
+  background: var(--amber);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(0.6);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.speech {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.state-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.caption {
+  font-size: 16px;
+  line-height: 1.32;
+  font-weight: 500;
+  max-height: 3.96em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.caption.driver {
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.strip {
+  display: flex;
+  gap: 18px;
+  align-items: baseline;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.stat b {
+  font-size: 14px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stat em {
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+
+.stat b.alert {
+  color: var(--amber);
+}
+
+.stat b.critical {
+  color: var(--red);
+}

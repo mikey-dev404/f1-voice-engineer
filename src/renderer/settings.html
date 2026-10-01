@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+    <title>Race Engineer Settings</title>
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body>
+    <h1>Race engineer</h1>
+    <p class="sub">Voice engineer for F1 25. Everything is stored on this machine.</p>
+
+    <section>
+      <h2>1. Gemini (free)</h2>
+      <label for="apiKey">API key</label>
+      <input id="apiKey" type="password" placeholder="Paste your AI Studio key" autocomplete="off" />
+      <p class="hint">
+        Get a free key at
+        <a href="#" id="studioLink">aistudio.google.com/apikey</a>. No card needed. On the free tier
+        Google may use the audio to improve their products.
+      </p>
+
+      <div class="row">
+        <div>
+          <label for="model">Model</label>
+          <select id="model"></select>
+        </div>
+        <div>
+          <label for="voice">Engineer voice</label>
+          <select id="voice"></select>
+        </div>
+      </div>
+
+      <label for="engineerName">What you call him</label>
+      <input id="engineerName" type="text" placeholder="Bono" />
+    </section>
+
+    <section>
+      <h2>2. Radio button on your wheel</h2>
+      <p class="hint">
+        F1 25 swallows keyboard input while it has focus, so the engineer listens to a button on
+        your wheel instead. Pick your Moza base below, then hold the button you want.
+      </p>
+
+      <label for="device">Wheel / controller</label>
+      <div class="row tight">
+        <select id="device"></select>
+        <button id="refreshDevices" class="ghost">Refresh</button>
+      </div>
+      <label class="check">
+        <input id="showAllDevices" type="checkbox" />
+        Show every USB device (use if your wheel is not in the list)
+      </label>
+
+      <div class="bind-box">
+        <div id="bindStatus" class="bind-status">No button bound yet.</div>
+        <div class="row tight">
+          <button id="learn" class="primary">Bind a button</button>
+          <button id="clearBind" class="ghost">Clear</button>
+        </div>
+      </div>
+
+      <p class="hint">
+        Use a spare face button, not a shift paddle or clutch. Afterwards, remove that button from
+        your F1 25 controls so the game does not also act on it.
+      </p>
+
+      <label class="check">
+        <input id="keyboardFallback" type="checkbox" />
+        Also allow a keyboard key (works at the desk, not while the game has focus)
+      </label>
+      <input id="keyboardAccel" type="text" placeholder="F8" />
+    </section>
+
+    <section>
+      <h2>3. Telemetry</h2>
+      <label for="udpPort">UDP port</label>
+      <input id="udpPort" type="number" min="1024" max="65535" />
+      <div id="udpStatus" class="status">Checking…</div>
+
+      <details>
+        <summary>What to set in F1 25</summary>
+        <ul>
+          <li>Settings &rarr; Telemetry Settings</li>
+          <li>UDP Telemetry: <b>On</b></li>
+          <li>UDP Format: <b>2025</b></li>
+          <li>UDP IP: <b>127.0.0.1</b> (same PC as the game)</li>
+          <li>UDP Port: <b>20777</b> (match the box above)</li>
+          <li>UDP Send Rate: <b>20Hz</b> or higher</li>
+          <li>Graphics: <b>Borderless</b> so the overlay stays visible</li>
+        </ul>
+      </details>
+    </section>
+
+    <footer>
+      <span id="saved" class="saved"></span>
+      <button id="close" class="primary">Done</button>
+    </footer>
+
+    <script type="module" src="settings.js"></script>
+  </body>
+</html>

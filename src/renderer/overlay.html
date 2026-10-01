@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://generativelanguage.googleapis.com wss://generativelanguage.googleapis.com; media-src 'self' blob:; worker-src 'self' blob:"
+    />
+    <title>Race Engineer</title>
+    <link rel="stylesheet" href="overlay.css" />
+  </head>
+  <body>
+    <div class="panel" id="panel" data-state="idle">
+      <header class="pills">
+        <span class="pill" id="pill-udp"><i></i><b>UDP</b><em id="udp-detail">off</em></span>
+        <span class="pill" id="pill-ai"><i></i><b>ENGINEER</b><em id="ai-detail">connecting</em></span>
+        <span class="pill" id="pill-ptt"><i></i><b>PTT</b><em id="ptt-detail">not bound</em></span>
+      </header>
+
+      <main class="body">
+        <div class="mic" id="mic">
+          <div class="mic-level" id="mic-level"></div>
+          <div class="mic-dot"></div>
+        </div>
+        <div class="speech">
+          <div class="state-label" id="state-label">Hold your radio button to talk</div>
+          <div class="caption" id="caption"></div>
+        </div>
+      </main>
+
+      <footer class="strip" id="strip">
+        <span class="stat"><b id="s-pos">--</b><em>POS</em></span>
+        <span class="stat"><b id="s-lap">--</b><em>LAP</em></span>
+        <span class="stat"><b id="s-tyre">--</b><em>TYRE</em></span>
+        <span class="stat"><b id="s-wear">--</b><em>WEAR</em></span>
+        <span class="stat"><b id="s-fuel">--</b><em>FUEL</em></span>
+        <span class="stat"><b id="s-ers">--</b><em>ERS</em></span>
+        <span class="stat"><b id="s-gap">--</b><em>GAP AHEAD</em></span>
+      </footer>
+    </div>
+
+    <script type="module" src="overlay.js"></script>
+  </body>
+</html>
